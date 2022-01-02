@@ -36,9 +36,8 @@ contract BalanceHandler is Ownable {
     }
 
     function rewardStudent(address _receiver, uint256 _amount) public isInstructor(msg.sender) {
-        if (_amount < LOW_BALANCE) {
-            _amount = LOW_BALANCE;
-        }
+        _amount = _amount * 10^18;
+        fqOneToken.transferFrom(msg.sender, _receiver, _amount);
         fqOneToken.transferFrom(msg.sender, _receiver, _amount);   
         emit rewardProvided(_receiver, _amount);
     }
