@@ -15,6 +15,14 @@ contract swapper is Ownable {
     //example trading from token A to WETH then WETH to token B might result in a better price
     address private constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
 
+    event swapPerformed(address indexed to, uint256 amountFrom);
+
+    function SwapTokens(address _tokenIn, address _tokenOut, uint256 _amountIn) public {
+        uint256 amountOutMin = getAmountOutMin(_tokenIn, _tokenOut, _amountIn);
+        swap(_tokenIn, _tokenOut, _amountIn, amountOutMin, msg.sender);
+        emit swapPerformed(msg.sender, _amountIn);
+    }
+
     //this swap function is used to trade from one token to another
     //the inputs are self explainatory
     //token in = the token address you want to trade out of
@@ -29,7 +37,7 @@ contract swapper is Ownable {
         uint256 _amountIn,
         uint256 _amountOutMin,
         address _to
-    ) external {
+    ) public {
         //first we need to transfer the amount in tokens from the msg.sender to this contract
         //this contract will have the amount of in tokens
         IERC20(_tokenIn).transferFrom(msg.sender, address(this), _amountIn);
@@ -71,7 +79,7 @@ contract swapper is Ownable {
         address _tokenIn,
         address _tokenOut,
         uint256 _amountIn
-    ) external view returns (uint256) {
+    ) public view returns (uint256) {
         //path is an array of addresses.
         //this path array will have 3 addresses [tokenIn, WETH, tokenOut]
         //the if statement below takes into account if token in or token out is WETH.  then the path is only 2 addresses

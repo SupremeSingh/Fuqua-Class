@@ -28,6 +28,8 @@ contract BalanceHandler is Ownable {
 
     constructor(address fqOneTokenAddress) {
         fqOneToken = IERC20(fqOneTokenAddress);
+        
+        fqOneToken.approve(msg.sender, GIANT_BALANCE);
         instructors[msg.sender] = true;
     }
 
@@ -38,7 +40,6 @@ contract BalanceHandler is Ownable {
     function rewardStudent(address _receiver, uint256 _amount) public isInstructor(msg.sender) {
         _amount = _amount * 10^18;
         fqOneToken.transferFrom(msg.sender, _receiver, _amount);
-        fqOneToken.transferFrom(msg.sender, _receiver, _amount);   
         emit rewardProvided(_receiver, _amount);
     }
 

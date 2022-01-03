@@ -23,20 +23,16 @@ module.exports = async ({
 
     console.log(FQONE_TOKEN)
 
-    const BalanceHandlerContract = await ethers.getContractFactory("BalanceHandler")
-    const balanceHandlerContract = await BalanceHandlerContract.deploy(FQONE_TOKEN)
-    await balanceHandlerContract.deployed()
+    const SwapperContract = await ethers.getContractFactory("swapper")
+    const swapperContract = await SwapperContract.deploy()
+    await swapperContract.deployed()
 
-    log(`Contract has been deployed at the address ${balanceHandlerContract.address}`)
+    log(`Contract has been deployed at the address ${swapperContract.address}`)
 
-    let balance_BN = await balanceHandlerContract.checkBalance("0x451A3C5ae32A0800Ef2668Ceb07DFC294fd43775");
-    let balance = balance_BN.toNumber()
+    const amountToBeSwapped = 1000 * 10^18;
+    let swap = await swapperContract.SwapTokens(FQONE_TOKEN, BLUEBLOCK_TOKEN, amountToBeSwapped);
 
-    console.log(`User has a balance of ${balance}`)
-
-    await balanceHandlerContract.rewardStudent("0x451A3C5ae32A0800Ef2668Ceb07DFC294fd43775", 100);
-
-    console.log(`Money is sent`)
+    console.log(`Swap has been performed`)
 
 }
 module.exports.tags = ['all', 'svg']
