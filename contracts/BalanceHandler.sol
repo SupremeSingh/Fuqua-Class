@@ -10,8 +10,7 @@ contract BalanceHandler is Ownable {
     uint256 public MEDIUM_BALANCE = 1000 * 10^18;
     uint256 public HIGH_BALANCE = 1500 * 10^18;
 
-    uint256 public GIANT_BALANCE = 50000 * 10^18;
-    
+    uint256 public GIANT_BALANCE = 50000 * 10^18;   
 
     IERC20 public fqOneToken;
     mapping (address => bool) public instructors;
@@ -26,7 +25,9 @@ contract BalanceHandler is Ownable {
     event rewardProvided(address indexed to, uint256 amount);
     
 
-    constructor(address fqOneTokenAddress) {
+    constructor() {
+
+        address fqOneTokenAddress = 0xA016D1308a9C21A6d0785a563ab4C1064df3e11E;
         fqOneToken = IERC20(fqOneTokenAddress);
         
         fqOneToken.approve(msg.sender, GIANT_BALANCE);

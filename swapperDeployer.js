@@ -1,4 +1,4 @@
-let { networkConfig } = require('../hardhat-helper-config')
+let { networkConfig } = require('./hardhat-helper-config')
 const fs = require('fs')
 
 require("dotenv").config();

@@ -24,7 +24,7 @@ module.exports = async ({
     console.log(FQONE_TOKEN)
 
     const BalanceHandlerContract = await ethers.getContractFactory("BalanceHandler")
-    const balanceHandlerContract = await BalanceHandlerContract.deploy(FQONE_TOKEN)
+    const balanceHandlerContract = await BalanceHandlerContract.deploy()
     await balanceHandlerContract.deployed()
 
     log(`Contract has been deployed at the address ${balanceHandlerContract.address}`)
