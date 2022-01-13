@@ -33,6 +33,8 @@ module.exports = {
       accounts: {
         mnemonic: MNEMONIC,
       },
+      gas: 2100000,
+      gasPrice: 8000000000,
       saveDeployments: true,
     },
     rinkeby: {
